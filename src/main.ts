@@ -2,7 +2,7 @@ import './assets/global.css'
 
 import { createApp } from 'vue'
 import PrimeVue from 'primevue/config'
-import Lara from './presets/lara'
+import Lara from '@/presets/lara'
 import { VueQueryPlugin } from '@tanstack/vue-query'
 import { createPinia } from 'pinia'
 

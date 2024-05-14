@@ -1,11 +1,13 @@
 import global from './global.js';
-import card from './card';
-import progressspinner from './progressspinner';
 import toolbar from './toolbar';
+import inputtext from './inputtext';
+import button from './button';
+import progressbar from './progressbar';
 
 export default {
     global,
-    card,
-    progressspinner,
-    toolbar
+    toolbar,
+    inputtext,
+    button,
+    progressbar
 }
