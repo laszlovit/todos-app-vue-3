@@ -8,7 +8,9 @@ const props = defineProps<{ todo: TodoWithId }>()
 <template>
   <Card class="rounded-xl border bg-white shadow p-4" :key="props.todo._id.toString()">
     <template #title
-      ><p class="break-all">{{ props.todo.done ? '✅' : '' }} {{ props.todo.content }}</p></template
+      ><p class="break-all mb-4">
+        {{ props.todo.done ? '✅' : '' }} {{ props.todo.content }}
+      </p></template
     >
     <template #content>
       <slot />
