@@ -63,17 +63,16 @@ const toggleDone = () => {
     <todo-item v-if="data" :todo="data">
       <slot>
         <div class="flex gap-x-2 justify-end">
-          <Button type="button" size="small" @click="toggleDone">Toggle Done</Button>
+          <Button label="Toggle Done" type="button" size="small" @click="toggleDone" />
           <Button
             type="button"
+            label="Remove"
             severity="danger"
             size="small"
             @click="deleteTodo(id)"
             :loading="isDeleting"
-            >Remove</Button
-          >
-        </div>
-      </slot></todo-item
-    >
+          />
+        </div> </slot
+    ></todo-item>
   </main-layout>
 </template>

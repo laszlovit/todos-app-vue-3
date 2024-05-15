@@ -28,11 +28,9 @@ const { isFetching, isError, data, error } = useQuery<TodoWithId[]>({
         <todo-item v-for="todo in data" :key="todo._id.toString()" :todo="todo">
           <slot>
             <div class="flex justify-end">
-              <Button size="small">
-                <router-link :to="{ name: 'todo', params: { id: todo._id.toString() } }">
-                  Edit
-                </router-link>
-              </Button>
+              <router-link :to="{ name: 'todo', params: { id: todo._id.toString() } }">
+                <Button label="Edit" size="small" />
+              </router-link>
             </div>
           </slot>
         </todo-item>
