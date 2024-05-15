@@ -44,7 +44,7 @@ const formSubmitted = () => {
 </script>
 
 <template>
-  <form @submit.prevent="formSubmitted">
+  <form @submit.prevent="user?.email && formSubmitted()">
     <div class="flex flex-col gap-3 mb-6">
       <label for="content" class="font-semibold">New Todo</label>
       <InputText
