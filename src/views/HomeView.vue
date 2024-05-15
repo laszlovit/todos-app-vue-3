@@ -2,8 +2,11 @@
 import { useQuery } from '@tanstack/vue-query'
 import { findAll } from '../lib/API'
 import type { TodoWithId } from '@/types/types'
-import ProgressBar from 'primevue/progressbar'
+import Button from 'primevue/button'
 import TodoForm from '@/components/TodoForm.vue'
+import TodoItem from '@/components/TodoItem.vue'
+import LinearLoading from '@/components/LinearLoading.vue'
+import MainLayout from '@/layouts/MainLayout.vue'
 
 async function fetchTodoList() {
   return await findAll()
@@ -17,18 +20,23 @@ const { isFetching, isError, data, error } = useQuery<TodoWithId[]>({
 </script>
 
 <template>
-  <div class="mx-auto max-w-xl py-6 px-6 lg:px-8">
-    <div class=""><TodoForm /></div>
-    <div
-      :style="{ opacity: isFetching ? '1' : '0' }"
-      class="flex justify-center mt-6 h-1.5 mb-4 duration-500"
-    >
-      <ProgressBar class="w-full h-1.5" mode="indeterminate"></ProgressBar>
-    </div>
-    <div class="flex flex-col gap-y-4">
-      <div class="rounded-xl border bg-white shadow p-4" v-for="todo in data" :key="todo._id">
-        <p class="">{{ todo.content }}</p>
+  <main-layout>
+    <slot>
+      <todo-form />
+      <linear-loading :is-loading="isFetching" />
+      <div v-if="data" class="flex flex-col gap-y-4">
+        <todo-item v-for="todo in data" :key="todo._id.toString()" :todo="todo">
+          <slot>
+            <div class="flex justify-end">
+              <Button size="small">
+                <router-link :to="{ name: 'todo', params: { id: todo._id.toString() } }">
+                  Edit
+                </router-link>
+              </Button>
+            </div>
+          </slot>
+        </todo-item>
       </div>
-    </div>
-  </div>
+    </slot>
+  </main-layout>
 </template>

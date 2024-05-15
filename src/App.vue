@@ -1,15 +1,11 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
-import Toolbar from 'primevue/toolbar'
+import NavBar from '@/components/NavBar.vue'
 </script>
 
 <template>
-  <div class="card">
-    <Toolbar>
-      <template #start> <p class="font-semibold text-3xl">Vue Todo App</p> </template>
-    </Toolbar>
-  </div>
-  <main class="container mx-auto">
+  <nav-bar />
+  <main class="">
     <RouterView />
   </main>
 </template>

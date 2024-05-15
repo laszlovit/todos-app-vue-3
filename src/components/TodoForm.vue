@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useQueryClient, useMutation } from '@tanstack/vue-query'
-import { createOne } from '@/lib/API'
-import { Todo } from '../types/TodoWithId'
+import { useQueryClient, useMutation, type InvalidateQueryFilters } from '@tanstack/vue-query'
+import { createOne, type APIError } from '@/lib/API'
+import type { Todo } from '@/types/types'
 import InputText from 'primevue/inputtext'
 import Button from 'primevue/button'
 
@@ -17,7 +17,7 @@ const { isPending, isError, error, isSuccess, mutate } = useMutation({
     // Call the API to create a new todo
     const createdTodo = await createOne(newTodoData)
     // Invalidate the query for fetching all todos after successful mutation
-    queryClient.invalidateQueries('findAll')
+    queryClient.invalidateQueries({ queryKey: ['todos'] } as InvalidateQueryFilters)
     // Return the created todo
     return createdTodo
   }
@@ -50,13 +50,7 @@ const formSubmitted = () => {
       />
     </div>
     <div class="flex justify-end gap-2">
-      <Button
-        type="submit"
-        :disabled="!newTodo"
-        :loading="isPending"
-        label="Add Todo"
-        @click="load"
-      ></Button>
+      <Button type="submit" :disabled="!newTodo" :loading="isPending" label="Add Todo" />
     </div>
   </form>
 </template>
