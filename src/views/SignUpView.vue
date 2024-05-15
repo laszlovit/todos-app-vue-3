@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useFirebaseAuth } from 'vuefire'
-import { signInWithEmailAndPassword } from '@firebase/auth'
+import { createUserWithEmailAndPassword } from '@firebase/auth'
 
 import MainLayout from '@/layouts/MainLayout.vue'
 import InputText from 'primevue/inputtext'
@@ -14,28 +14,29 @@ const userInput = ref({
 })
 
 const auth = useFirebaseAuth()!
-const signInSuccess = ref(false)
+const signUpSuccess = ref(false)
 
-async function signInToFirebase() {
-  signInWithEmailAndPassword(auth, userInput.value.email, userInput.value.password)
+async function createUser() {
+  createUserWithEmailAndPassword(auth, userInput.value.email, userInput.value.password)
     .then((userCredential) => {
       // Signed in
       const user = userCredential.user
-      signInSuccess.value = true
+      signUpSuccess.value = true
       // ...
     })
     .catch((error) => {
       const errorCode = error.code
       const errorMessage = error.message
+      // ..
     })
 }
 </script>
 
 <template>
   <main-layout
-    ><h1 class="mb-4 font-semibold">Log in</h1>
-    <Message v-if="signInSuccess" severity="success"
-      >Log in was successful.
+    ><h1 class="mb-4 font-semibold">Sign up</h1>
+    <Message v-if="signUpSuccess" severity="success"
+      >User created successfully.
       <span class="underline underline-offset-2"
         ><router-link :to="{ name: 'home' }">Proceed to the home page. </router-link></span
       >
@@ -59,14 +60,14 @@ async function signInToFirebase() {
       />
       <div class="flex gap-x-2">
         <Button
-          label="Log in"
-          @click="signInToFirebase"
+          label="Sign up"
           class="uppercase"
           size="small"
           severity="info"
+          @click="createUser"
         />
-        <router-link :to="{ name: 'signUp' }">
-          <Button label="Sign up" class="uppercase" size="small" severity="info" outlined />
+        <router-link :to="{ name: 'signIn' }">
+          <Button label="Log in" class="uppercase" size="small" severity="info" outlined />
         </router-link>
       </div>
     </form>
