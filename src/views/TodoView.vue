@@ -59,6 +59,9 @@ const toggleDone = () => {
 
 <template>
   <main-layout>
+    <router-link :to="{ name: 'home' }">
+      <Button label="Back to all todos" link class="px-0 py-0" />
+    </router-link>
     <linear-loading :is-loading="isFetching" />
     <todo-item v-if="data" :todo="data">
       <slot>
