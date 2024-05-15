@@ -42,36 +42,36 @@ const { isFetching, isError, data, error } = useQuery<TodoWithId[]>({
                 <Button label="Edit" size="small" />
               </router-link>
               <Button v-else label="Edit" @click="editModalIsVisible = true" size="small" />
-              <Dialog
-                v-model:visible="editModalIsVisible"
-                modal
-                header="Login required"
-                :style="{ width: '25rem' }"
-              >
-                <span class="text-surface-600 dark:text-surface-0/70 block mb-5"
-                  >You have to log in to edit todos.</span
-                >
-                <div class="flex justify-end gap-2">
-                  <Button
-                    type="button"
-                    label="Cancel"
-                    severity="secondary"
-                    @click="editModalIsVisible = false"
-                  ></Button>
-                  <router-link :to="{ name: 'signIn' }">
-                    <Button
-                      type="button"
-                      severity="info"
-                      label="To Login Page"
-                      @click="editModalIsVisible = false"
-                    />
-                  </router-link>
-                </div>
-              </Dialog>
             </div>
           </slot>
         </todo-item>
       </div>
+      <Dialog
+        v-model:visible="editModalIsVisible"
+        modal
+        header="Login required"
+        :style="{ width: '25rem' }"
+      >
+        <span class="text-surface-600 dark:text-surface-0/70 block mb-5"
+          >You have to log in to edit todos.</span
+        >
+        <div class="flex justify-end gap-2">
+          <Button
+            type="button"
+            label="Cancel"
+            severity="secondary"
+            @click="editModalIsVisible = false"
+          ></Button>
+          <router-link :to="{ name: 'signIn' }">
+            <Button
+              type="button"
+              severity="info"
+              label="To Login Page"
+              @click="editModalIsVisible = false"
+            />
+          </router-link>
+        </div>
+      </Dialog>
     </slot>
   </main-layout>
 </template>
