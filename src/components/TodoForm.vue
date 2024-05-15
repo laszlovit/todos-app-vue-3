@@ -1,11 +1,17 @@
 <script setup lang="ts">
+import { ref } from 'vue'
+
 import { useQueryClient, useMutation, type InvalidateQueryFilters } from '@tanstack/vue-query'
 import { createOne, type APIError } from '@/lib/API'
 import type { Todo } from '@/types/types'
+import { useCurrentUser } from 'vuefire'
 import InputText from 'primevue/inputtext'
 import Button from 'primevue/button'
+import Dialog from 'primevue/dialog'
 
-import { ref } from 'vue'
+const user = useCurrentUser()
+
+const addModalIsVisible = ref(false)
 
 const newTodo = ref('')
 
@@ -50,7 +56,40 @@ const formSubmitted = () => {
       />
     </div>
     <div class="flex justify-end gap-2">
-      <Button type="submit" :disabled="!newTodo" :loading="isPending" label="Add Todo" />
+      <Button
+        v-if="user?.email"
+        type="submit"
+        :disabled="!newTodo"
+        :loading="isPending"
+        label="Add Todo"
+      />
+      <Button v-else :disabled="!newTodo" label="Add Todo" @click="addModalIsVisible = true" />
+      <Dialog
+        v-model:visible="addModalIsVisible"
+        modal
+        header="Login required"
+        :style="{ width: '25rem' }"
+      >
+        <span class="text-surface-600 dark:text-surface-0/70 block mb-5"
+          >You have to log in to edit todos.</span
+        >
+        <div class="flex justify-end gap-2">
+          <Button
+            type="button"
+            label="Cancel"
+            severity="secondary"
+            @click="addModalIsVisible = false"
+          ></Button>
+          <router-link :to="{ name: 'signIn' }">
+            <Button
+              type="button"
+              severity="info"
+              label="To Login Page"
+              @click="addModalIsVisible = false"
+            />
+          </router-link>
+        </div>
+      </Dialog>
     </div>
   </form>
 </template>

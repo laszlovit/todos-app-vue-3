@@ -4,6 +4,7 @@ import inputtext from './inputtext'
 import button from './button'
 import progressbar from './progressbar'
 import message from './message'
+import dialog from './dialog'
 
 export default {
   global,
@@ -11,5 +12,6 @@ export default {
   inputtext,
   button,
   progressbar,
-  message
+  message,
+  dialog
 }
