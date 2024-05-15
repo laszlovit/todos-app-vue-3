@@ -7,18 +7,12 @@ import { signOut } from '@firebase/auth'
 
 const user = useCurrentUser()
 
-console.log(user)
-
 const auth = useFirebaseAuth()
 
 async function signOutOfFirebase() {
-  signOut(auth!)
-    .then(() => {
-      console.log('Logged out!')
-    })
-    .catch((error) => {
-      console.error(error)
-    })
+  signOut(auth!).catch((error) => {
+    console.error(error)
+  })
 }
 </script>
 

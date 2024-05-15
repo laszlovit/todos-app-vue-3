@@ -23,7 +23,6 @@ async function createUser() {
       // Signed in
       const user = userCredential.user
       signUpSuccess.value = true
-      console.log(user)
       // ...
     })
     .catch((error) => {
