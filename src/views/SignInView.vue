@@ -50,7 +50,7 @@ async function signInToFirebase() {
 
 <template>
   <main-layout
-    ><h1 class="mb-4 font-semibold">Sign in</h1>
+    ><h1 class="mb-4 font-semibold">Log in / Create new user</h1>
     <Message v-if="signUpSuccess" severity="success"
       >User created successfully.
       <span class="underline underline-offset-2"
@@ -58,7 +58,7 @@ async function signInToFirebase() {
       >
     </Message>
     <Message v-if="signInSuccess" severity="success"
-      >Sign in successful.
+      >Log in successful.
       <span class="underline underline-offset-2"
         ><router-link :to="{ name: 'home' }">Proceed to the home page. </router-link></span
       >
@@ -82,7 +82,7 @@ async function signInToFirebase() {
       />
       <div class="flex gap-x-2">
         <Button
-          label="Sign in"
+          label="Log in"
           @click="signInToFirebase"
           class="uppercase"
           size="small"

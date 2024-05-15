@@ -34,7 +34,7 @@ async function signOutOfFirebase() {
         ><router-link v-if="user?.email" :to="{ name: 'signIn' }"
           ><Button label="Sign out" @click="signOutOfFirebase" severity="info" /></router-link
         ><router-link v-else :to="{ name: 'signIn' }"
-          ><Button label="Sign in" severity="info" /></router-link
+          ><Button label="Log in" severity="info" /></router-link
       ></template>
     </Toolbar>
   </div>
