@@ -25,7 +25,6 @@ async function signInToFirebase() {
     )
     const idToken = await userCredential.user.getIdToken(/* forceRefresh */ true)
     localStorage.setItem('token', idToken) // Store token in local storage
-    console.log(idToken)
     signInSuccess.value = true // Set sign-in success flag
   } catch (error: any) {
     const errorCode = error.code
