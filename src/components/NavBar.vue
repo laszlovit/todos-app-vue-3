@@ -17,19 +17,17 @@ async function signOutOfFirebase() {
 </script>
 
 <template>
-  <div class="card">
-    <Toolbar>
-      <template #start
-        ><router-link :to="{ name: 'home' }"
-          ><p class="font-semibold text-3xl">Vue Todo App</p></router-link
-        ></template
-      >
-      <template #end
-        ><router-link v-if="user?.email" :to="{ name: 'signIn' }"
-          ><Button label="Log out" @click="signOutOfFirebase" severity="info" /></router-link
-        ><router-link v-else :to="{ name: 'signIn' }"
-          ><Button label="Log in" severity="info" /></router-link
-      ></template>
-    </Toolbar>
-  </div>
+  <Toolbar>
+    <template #start
+      ><RouterLink :to="{ name: 'home' }"
+        ><p class="font-semibold text-3xl">Vue Todo App</p></RouterLink
+      ></template
+    >
+    <template #end
+      ><RouterLink v-if="user?.email" :to="{ name: 'signIn' }"
+        ><Button label="Log out" @click="signOutOfFirebase" severity="info" /></RouterLink
+      ><RouterLink v-else :to="{ name: 'signIn' }"
+        ><Button label="Log in" severity="info" /></RouterLink
+    ></template>
+  </Toolbar>
 </template>

@@ -80,14 +80,14 @@ const formSubmitted = () => {
             severity="secondary"
             @click="addModalIsVisible = false"
           ></Button>
-          <router-link :to="{ name: 'signIn' }">
+          <RouterLink :to="{ name: 'signIn' }">
             <Button
               type="button"
               severity="info"
               label="To Login Page"
               @click="addModalIsVisible = false"
             />
-          </router-link>
+          </RouterLink>
         </div>
       </Dialog>
     </div>

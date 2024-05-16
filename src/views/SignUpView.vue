@@ -15,7 +15,7 @@ const userInput = ref({
 
 const auth = useFirebaseAuth()!
 const signUpSuccess = ref(false)
-const errorMessage = ref('') // Ref to store error message
+const errorMessage = ref('')
 
 async function createUser() {
   try {
@@ -58,7 +58,7 @@ async function createUser() {
     <Message v-if="signUpSuccess" severity="success">
       User created successfully.
       <span class="underline underline-offset-2">
-        <router-link :to="{ name: 'home' }">Proceed to the home page.</router-link>
+        <RouterLink :to="{ name: 'home' }">Proceed to the home page.</RouterLink>
       </span>
     </Message>
     <form action="" class="flex flex-col gap-y-4">
@@ -86,9 +86,9 @@ async function createUser() {
           severity="info"
           @click="createUser"
         />
-        <router-link :to="{ name: 'signIn' }">
+        <RouterLink :to="{ name: 'signIn' }">
           <Button label="Log in" class="uppercase" size="small" severity="info" outlined />
-        </router-link>
+        </RouterLink>
       </div>
     </form>
   </MainLayout>

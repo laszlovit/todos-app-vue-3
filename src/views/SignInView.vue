@@ -58,7 +58,7 @@ async function signInToFirebase() {
     <Message v-if="signInSuccess" severity="success"
       >Log in was successful.
       <span class="underline underline-offset-2"
-        ><router-link :to="{ name: 'home' }">Proceed to the home page. </router-link></span
+        ><RouterLink :to="{ name: 'home' }">Proceed to the home page. </RouterLink></span
       >
     </Message>
     <Message v-if="errorMessage" severity="error">
@@ -89,9 +89,9 @@ async function signInToFirebase() {
           size="small"
           severity="info"
         />
-        <router-link :to="{ name: 'signUp' }">
+        <RouterLink :to="{ name: 'signUp' }">
           <Button label="Sign up" class="uppercase" size="small" severity="info" outlined />
-        </router-link>
+        </RouterLink>
       </div>
     </form>
   </MainLayout>

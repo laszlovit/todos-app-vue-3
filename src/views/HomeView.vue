@@ -30,17 +30,17 @@ const { isFetching, isError, data, error } = useQuery<TodoWithId[]>({
   <MainLayout>
     <slot>
       <TodoForm />
-      <linear-loading :is-loading="isFetching" />
+      <LinearLoading :is-loading="isFetching" />
       <div v-if="data" class="flex flex-col gap-y-4">
         <TodoItem v-for="todo in data" :key="todo._id.toString()" :todo="todo">
           <slot>
             <div class="flex justify-end">
-              <router-link
+              <RouterLink
                 v-if="user?.email"
                 :to="{ name: 'todo', params: { id: todo._id.toString() } }"
               >
                 <Button label="Edit" size="small" />
-              </router-link>
+              </RouterLink>
               <Button v-else label="Edit" @click="editModalIsVisible = true" size="small" />
             </div>
           </slot>
@@ -62,14 +62,14 @@ const { isFetching, isError, data, error } = useQuery<TodoWithId[]>({
             severity="secondary"
             @click="editModalIsVisible = false"
           ></Button>
-          <router-link :to="{ name: 'signIn' }">
+          <RouterLink :to="{ name: 'signIn' }">
             <Button
               type="button"
               severity="info"
               label="To Login Page"
               @click="editModalIsVisible = false"
             />
-          </router-link>
+          </RouterLink>
         </div>
       </Dialog>
     </slot>
