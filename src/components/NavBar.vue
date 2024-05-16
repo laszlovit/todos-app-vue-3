@@ -12,7 +12,7 @@ const auth = useFirebaseAuth()
 
 async function signOutOfFirebase() {
   signOut(auth!).catch((error) => {
-    console.error(error)
+    errorMessage.value = error.message
   })
 }
 </script>
@@ -24,8 +24,8 @@ async function signOutOfFirebase() {
         ><p class="font-semibold text-3xl">Vue Todo App</p></RouterLink
       ></template
     >
-    <template #middle v-if="error">
-      <Message severity="error">Error: {{ error?.message }}</Message>
+    <template #middle v-if="errorMessage">
+      <Message severity="error">{{ errorMessage }}</Message>
     </template>
     <template #end
       ><RouterLink v-if="user?.email" :to="{ name: 'signIn' }"
