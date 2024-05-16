@@ -7,6 +7,7 @@ import { useCurrentUser, useFirebaseAuth } from 'vuefire'
 import { signOut } from '@firebase/auth'
 
 const user = useCurrentUser()
+const errorMessage = ref<string | null>(null)
 
 const auth = useFirebaseAuth()
 
