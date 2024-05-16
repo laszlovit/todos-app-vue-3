@@ -17,17 +17,22 @@ const auth = useFirebaseAuth()!
 const signInSuccess = ref(false)
 
 async function signInToFirebase() {
-  signInWithEmailAndPassword(auth, userInput.value.email, userInput.value.password)
-    .then((userCredential) => {
-      // Signed in
-      const user = userCredential.user
-      signInSuccess.value = true
-      // ...
-    })
-    .catch((error) => {
-      const errorCode = error.code
-      const errorMessage = error.message
-    })
+  try {
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
+      userInput.value.email,
+      userInput.value.password
+    )
+    const idToken = await userCredential.user.getIdToken(/* forceRefresh */ true)
+    localStorage.setItem('token', idToken) // Store token in local storage
+    console.log(idToken)
+    signInSuccess.value = true // Set sign-in success flag
+  } catch (error: any) {
+    const errorCode = error.code
+    const errorMessage = error.message
+    // Handle sign-in errors
+    console.error('Sign-in failed:', errorMessage)
+  }
 }
 </script>
 
