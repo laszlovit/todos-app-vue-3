@@ -27,12 +27,12 @@ const { isFetching, isError, data, error } = useQuery<TodoWithId[]>({
 </script>
 
 <template>
-  <main-layout>
+  <MainLayout>
     <slot>
-      <todo-form />
+      <TodoForm />
       <linear-loading :is-loading="isFetching" />
       <div v-if="data" class="flex flex-col gap-y-4">
-        <todo-item v-for="todo in data" :key="todo._id.toString()" :todo="todo">
+        <TodoItem v-for="todo in data" :key="todo._id.toString()" :todo="todo">
           <slot>
             <div class="flex justify-end">
               <router-link
@@ -44,7 +44,7 @@ const { isFetching, isError, data, error } = useQuery<TodoWithId[]>({
               <Button v-else label="Edit" @click="editModalIsVisible = true" size="small" />
             </div>
           </slot>
-        </todo-item>
+        </TodoItem>
       </div>
       <Dialog
         v-model:visible="editModalIsVisible"
@@ -73,5 +73,5 @@ const { isFetching, isError, data, error } = useQuery<TodoWithId[]>({
         </div>
       </Dialog>
     </slot>
-  </main-layout>
+  </MainLayout>
 </template>

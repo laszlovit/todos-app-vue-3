@@ -15,31 +15,51 @@ const userInput = ref({
 
 const auth = useFirebaseAuth()!
 const signUpSuccess = ref(false)
+const errorMessage = ref('') // Ref to store error message
 
 async function createUser() {
-  createUserWithEmailAndPassword(auth, userInput.value.email, userInput.value.password)
-    .then((userCredential) => {
-      // Signed in
-      const user = userCredential.user
-      signUpSuccess.value = true
-      // ...
-    })
-    .catch((error) => {
-      const errorCode = error.code
-      const errorMessage = error.message
-      // ..
-    })
+  try {
+    await createUserWithEmailAndPassword(auth, userInput.value.email, userInput.value.password)
+    // Signed up successfully
+    signUpSuccess.value = true
+    // ...
+  } catch (error: any) {
+    const errorCode = error.code
+    let errorMessageText = ''
+    // Handle specific error codes
+    switch (errorCode) {
+      case 'auth/invalid-email':
+        errorMessageText = 'Invalid email address.'
+        break
+      case 'auth/email-already-in-use':
+        errorMessageText = 'Email is already in use.'
+        break
+      case 'auth/weak-password':
+        errorMessageText = 'Password is too weak.'
+        break
+      default:
+        errorMessageText = 'Sign-up failed. Please try again later.'
+        break
+    }
+    // Set the error message
+    errorMessage.value = errorMessageText
+  }
 }
 </script>
 
 <template>
-  <main-layout
-    ><h1 class="mb-4 font-semibold">Sign up</h1>
-    <Message v-if="signUpSuccess" severity="success"
-      >User created successfully.
-      <span class="underline underline-offset-2"
-        ><router-link :to="{ name: 'home' }">Proceed to the home page. </router-link></span
-      >
+  <MainLayout>
+    <h1 class="mb-4 font-semibold">Sign up</h1>
+    <!-- Display error message only if errorMessage exists -->
+    <Message v-if="errorMessage" severity="error">
+      {{ errorMessage }}
+    </Message>
+    <!-- Display success message if sign-up was successful -->
+    <Message v-if="signUpSuccess" severity="success">
+      User created successfully.
+      <span class="underline underline-offset-2">
+        <router-link :to="{ name: 'home' }">Proceed to the home page.</router-link>
+      </span>
     </Message>
     <form action="" class="flex flex-col gap-y-4">
       <InputText
@@ -71,5 +91,5 @@ async function createUser() {
         </router-link>
       </div>
     </form>
-  </main-layout>
+  </MainLayout>
 </template>

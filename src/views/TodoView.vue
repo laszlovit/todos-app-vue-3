@@ -58,12 +58,12 @@ const toggleDone = () => {
 </script>
 
 <template>
-  <main-layout>
+  <MainLayout>
     <router-link :to="{ name: 'home' }">
       <Button label="Back to all todos" link class="px-0 py-0" />
     </router-link>
     <linear-loading :is-loading="isFetching" />
-    <todo-item v-if="data" :todo="data">
+    <TodoItem v-if="data" :todo="data">
       <slot>
         <div class="flex gap-x-2 justify-end">
           <Button label="Toggle Done" type="button" size="small" @click="toggleDone" />
@@ -76,6 +76,6 @@ const toggleDone = () => {
             :loading="isDeleting"
           />
         </div> </slot
-    ></todo-item>
-  </main-layout>
+    ></TodoItem>
+  </MainLayout>
 </template>

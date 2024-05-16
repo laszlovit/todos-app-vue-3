@@ -14,7 +14,9 @@ const userInput = ref({
 })
 
 const auth = useFirebaseAuth()!
+
 const signInSuccess = ref(false)
+const errorMessage = ref('')
 
 async function signInToFirebase() {
   try {
@@ -28,21 +30,39 @@ async function signInToFirebase() {
     signInSuccess.value = true // Set sign-in success flag
   } catch (error: any) {
     const errorCode = error.code
-    const errorMessage = error.message
-    // Handle sign-in errors
-    console.error('Sign-in failed:', errorMessage)
+    let errorMessageText = ''
+
+    // Handle specific error codes
+    switch (errorCode) {
+      case 'auth/invalid-email':
+        errorMessageText = 'Invalid email address.'
+        break
+      case 'auth/user-not-found':
+      case 'auth/wrong-password':
+        errorMessageText = 'Invalid email or password.'
+        break
+      default:
+        errorMessageText = 'Sign-in failed. Please try again later.'
+        break
+    }
+
+    // Set the error message
+    errorMessage.value = errorMessageText
   }
 }
 </script>
 
 <template>
-  <main-layout
+  <MainLayout
     ><h1 class="mb-4 font-semibold">Log in</h1>
     <Message v-if="signInSuccess" severity="success"
       >Log in was successful.
       <span class="underline underline-offset-2"
         ><router-link :to="{ name: 'home' }">Proceed to the home page. </router-link></span
       >
+    </Message>
+    <Message v-if="errorMessage" severity="error">
+      {{ errorMessage }}
     </Message>
     <form action="" class="flex flex-col gap-y-4">
       <InputText
@@ -74,5 +94,5 @@ async function signInToFirebase() {
         </router-link>
       </div>
     </form>
-  </main-layout>
+  </MainLayout>
 </template>
