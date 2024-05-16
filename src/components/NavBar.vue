@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import Toolbar from 'primevue/toolbar'
 import Button from 'primevue/button'
+import Message from 'primevue/message'
 
 import { useCurrentUser, useFirebaseAuth } from 'vuefire'
 import { signOut } from '@firebase/auth'
@@ -23,6 +24,9 @@ async function signOutOfFirebase() {
         ><p class="font-semibold text-3xl">Vue Todo App</p></RouterLink
       ></template
     >
+    <template #middle v-if="error">
+      <Message severity="error">Error: {{ error?.message }}</Message>
+    </template>
     <template #end
       ><RouterLink v-if="user?.email" :to="{ name: 'signIn' }"
         ><Button label="Log out" @click="signOutOfFirebase" severity="info" /></RouterLink

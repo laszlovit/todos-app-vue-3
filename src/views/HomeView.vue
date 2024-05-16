@@ -10,6 +10,7 @@ import TodoItem from '@/components/TodoItem.vue'
 import LinearLoading from '@/components/LinearLoading.vue'
 import MainLayout from '@/layouts/MainLayout.vue'
 import Dialog from 'primevue/dialog'
+import Message from 'primevue/message'
 
 const user = useCurrentUser()
 
@@ -31,6 +32,7 @@ const { isFetching, isError, data, error } = useQuery<TodoWithId[]>({
     <slot>
       <TodoForm />
       <LinearLoading :is-loading="isFetching" />
+      <Message v-if="isError" severity="error">Error: {{ error?.message }}</Message>
       <div v-if="data" class="flex flex-col gap-y-4">
         <TodoItem v-for="todo in data" :key="todo._id.toString()" :todo="todo">
           <slot>

@@ -64,7 +64,7 @@ const toggleDone = () => {
       <Button label="Back to all todos" link class="px-0 py-0" />
     </RouterLink>
     <LinearLoading :is-loading="isFetching" />
-    <Message v-if="isError">Error: {{ error?.message }}</Message>
+    <Message v-if="isError" severity="error">Error: {{ error?.message }}</Message>
     <TodoItem v-if="data" :todo="data">
       <slot>
         <div class="flex gap-x-2 justify-end">
