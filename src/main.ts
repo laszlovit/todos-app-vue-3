@@ -1,5 +1,6 @@
 import './assets/global.css'
-
+import App from './App.vue'
+import router from './router'
 import { createApp } from 'vue'
 import PrimeVue from 'primevue/config'
 // @ts-ignore
@@ -21,26 +22,22 @@ const vueQueryPluginOptions: VueQueryPluginOptions = {
   }
 }
 
-import App from './App.vue'
-import router from './router'
-
 const app = createApp(App)
 
 app.use(VueFire, {
-  // imported above but could also just be created here
   firebaseApp,
-  modules: [
-    // we will see other modules later on
-    VueFireAuth()
-  ]
+  modules: [VueFireAuth()]
 })
 
 app.use(PrimeVue, {
   unstyled: true,
   pt: Lara
-}),
-  app.use(createPinia())
+})
+
+app.use(createPinia())
+
 app.use(router)
+
 app.use(VueQueryPlugin, vueQueryPluginOptions)
 
 app.mount('#app')

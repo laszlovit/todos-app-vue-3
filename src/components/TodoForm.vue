@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-
 import { useQueryClient, useMutation, type InvalidateQueryFilters } from '@tanstack/vue-query'
-import { createOne, type APIError } from '@/lib/API'
+import { createOne } from '@/lib/API'
 import type { Todo } from '@/types/types'
 import { useCurrentUser } from 'vuefire'
 import InputText from 'primevue/inputtext'
@@ -18,13 +17,11 @@ const newTodo = ref('')
 const queryClient = useQueryClient()
 
 // Define the mutation for creating a new todo
-const { isPending, isError, error, isSuccess, mutate } = useMutation({
+const { isPending, isError, error, mutate } = useMutation({
   mutationFn: async (newTodoData: Todo) => {
-    // Call the API to create a new todo
     const createdTodo = await createOne(newTodoData)
     // Invalidate the query for fetching all todos after successful mutation
     queryClient.invalidateQueries({ queryKey: ['todos'] } as InvalidateQueryFilters)
-    // Return the created todo
     return createdTodo
   }
 })
@@ -32,12 +29,10 @@ const { isPending, isError, error, isSuccess, mutate } = useMutation({
 // Define a function to handle form submission
 const formSubmitted = () => {
   if (newTodo.value.trim()) {
-    // Call the mutate function to create a new todo
     mutate({
       content: newTodo.value,
       done: false
     })
-    // Reset the newTodo value after submission
     newTodo.value = ''
   }
 }
@@ -54,6 +49,7 @@ const formSubmitted = () => {
         class="flex-auto"
         autocomplete="off"
       />
+      <span v-if="isError" class="text-red-500">{{ error }}</span>
     </div>
     <div class="flex justify-end gap-2">
       <Button
